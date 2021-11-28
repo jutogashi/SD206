@@ -1,0 +1,17 @@
+empty(X):-
+	retract(X),
+	fail.
+empty(_).
+
+
+findany(Var, Pred, _):-
+	Pred,
+	asserta(found(Var)),
+	fail.
+findany(,,Results):-
+	colect_found([],Results).
+colect_found(L,Results):-
+	retract(found(X)),
+	colect_found([X|L],Results),!.
+colect_found(Results,Results).
+
